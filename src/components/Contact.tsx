@@ -11,7 +11,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
   const [showFormModal, setShowFormModal] = useState(false);
   const [formData, setFormData] = useState<ContactFormState>({
     name: '',
-    email: '', ['portfolio-918s.onrender.com']
+    email: '',
     subject: '',
     projectType: 'Frontend Engineering',
     message: '',
