@@ -11,7 +11,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
   const [showFormModal, setShowFormModal] = useState(false);
   const [formData, setFormData] = useState<ContactFormState>({
     name: '',
-    email: '',
+    email: '', ['portfolio-918s.onrender.com']
     subject: '',
     projectType: 'Frontend Engineering',
     message: '',
@@ -140,7 +140,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
           </div>
 
           <div className="text-xs font-mono text-neutral-500 pt-6">
-            // Omito Elizabeth · Frontend & DevOps Practitioner · Kisumu & Nairobi
+            // Omito Elizabeth · Software Engineer, Project Manager & DevOps Practitioner · Kisumu & Nairobi
           </div>
         </div>
 
@@ -148,7 +148,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
         {/* RIGHT COLUMN: 3 Contiguous Solid Colored Boxes (NO GAP, Screenshot 7 Match) */}
         {/* ========================================================================= */}
         <div className="lg:col-span-6 grid grid-cols-1 md:grid-cols-2 gap-0 select-none">
-          {/* BOX 1: Tall Solid Purple Box (Exact Color #A259FF from Screenshot 7) */}
+          {/* BOX 1: Tall Solid Purple Box (Exact Color #5b4677ff from Screenshot 7) */}
           <div className="bg-[#A259FF] text-white p-8 sm:p-10 lg:p-12 flex flex-col justify-between min-h-[380px] md:min-h-full">
             {/* Top Row: Quote mark + Circular Avatar */}
             <div className="flex items-start justify-between">
@@ -169,23 +169,25 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
 
             {/* Testimonial Quote Text */}
             <p className="text-xs sm:text-sm text-white/95 leading-relaxed font-sans my-8">
-              Since 2024 Elizabeth has been responsible for the development of our systems and client web applications which has been instrumental to our team's delivery. Even while working remotely she’s been highly responsive, organized and strategic in her thinking. In addition to staying on top of day-to-day site changes and builds, she’s provided us with great advice to stay on top of the current changes in web technologies. She’s also implemented effective project management and QA processes. As a result Elizabeth has been a highly valued and impactful member of our team.
+              I have had the opportunity to work closely with Elizabeth Omito during her Project Management shadowing experience on the LLF project, and what stands out to me is how naturally she connects technology, people and delivery.
+
+              Elizabeth is not the kind of project manager who simply tracks tasks on a board. She is curious about what is happening underneath the task. When the team is discussing development, design, QA or technical challenges, she takes the initiative to understand the context, ask the right questions and connect the discussion back to the project objectives. As a result Elizabeth has been a highly valued and impactful member of our team.
             </p>
 
             {/* Author Attribution */}
             <div className="space-y-0.5">
               <div className="font-bold text-sm sm:text-base text-white">
-                – Mark Greenspan
+                – Flovian Owiti
               </div>
               <div className="text-xs text-white/80">
-                Founder at influenceTHIS Canada
+                Project Manager at Zone01 Kisumu
               </div>
             </div>
           </div>
 
           {/* RIGHT HALF: Two Vertically Stacked Solid Blocks (Blue & Deep Purple) */}
           <div className="flex flex-col gap-0">
-            {/* BOX 2: Solid Electric Blue (Exact Color #0066FF from Screenshot 7) */}
+            {/* BOX 2: Solid Electric Blue (Exact Color #5170a0ff from Screenshot 7) */}
             <div className="bg-[#0066FF] text-white p-8 sm:p-10 flex flex-col justify-between flex-1 min-h-[290px]">
               {/* Top Row: Quote mark + Circular Avatar */}
               <div className="flex items-start justify-between">
@@ -205,21 +207,27 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
 
               {/* Quote Text */}
               <p className="text-xs sm:text-sm text-white/95 leading-relaxed font-sans my-6">
-                Elizabeth is AMAZING! If you have any doubt about hiring her, ask me – I am really impressed by this developer!
+
+                I got to interact with Elizabeth through the open-source and Bitcoin developer community, and what stands out to me is her curiosity, willingness to learn, and ability to turn new concepts into practical projects.
+
+                Elizabeth approaches technology with a strong problem-solving mindset. She is not afraid to ask questions, dig into how things work, and move from simply understanding an idea to actually building with it. Her growing interest in Bitcoin, Lightning, open-source development, and software engineering reflects someone who is intentional about expanding her technical depth.
+
+                I’m confident that Elizabeth will continue growing into a strong software engineer and contributor within the open-source ecosystem. Her curiosity, consistency, and willingness to learn make her someone worth watching.
+
               </p>
 
               {/* Attribution */}
               <div className="space-y-0.5">
                 <div className="font-bold text-sm sm:text-base text-white">
-                  – Wilfried Hajek
+                  – Vallery Odinga
                 </div>
                 <div className="text-xs text-white/80">
-                  Agile Coach | Speaker | Trainer
+                  Bitcoin Open Source Contributor
                 </div>
               </div>
             </div>
 
-            {/* BOX 3: Solid Royal Violet Purple (Exact Color #8435E8 from Screenshot 7) */}
+            {/* BOX 3: Solid Royal Violet Purple (Exact Color #9d63e9ff from Screenshot 7) */}
             <div className="bg-[#8435E8] text-white p-8 sm:p-10 flex flex-col justify-between flex-1 min-h-[310px]">
               {/* Top Row: Quote mark + Circular Avatar */}
               <div className="flex items-start justify-between">
@@ -239,16 +247,18 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
 
               {/* Quote Text */}
               <p className="text-xs sm:text-sm text-white/95 leading-relaxed font-sans my-6">
-                Elizabeth is one of the best professionals that we have known in web development skills. Between her skills you can find good communication and accuracy with the planning in complex projects.
+                Elizabeth is comfortable working with Git and Linux-based environments and has been gaining practical exposure to CI/CD, deployment workflows, environment configuration, and troubleshooting application and infrastructure issues. She approaches technical problems with curiosity and is willing to investigate issues from the application layer through to the underlying system.
+
+                I would recommend Elizabeth to opportunities where she can continue developing her DevOps skills while contributing to real engineering teams. She has the mindset, curiosity, and practical foundation needed to grow into a strong DevOps professional.
               </p>
 
               {/* Attribution */}
               <div className="space-y-0.5">
                 <div className="font-bold text-sm sm:text-base text-white">
-                  – Jonathan Castro
+                  – Clinton Odhiambo
                 </div>
                 <div className="text-xs text-white/80">
-                  CEO & Founder at The Cliff
+                  CEO Dev.wengi | Fullstack Developer
                 </div>
               </div>
             </div>
