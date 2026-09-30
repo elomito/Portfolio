@@ -28,7 +28,7 @@ export const BlogModal: React.FC<BlogModalProps> = ({ post, onClose }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-sm animate-fadeIn">
       <div className="absolute inset-0" onClick={onClose} />
 
-      <div cla['portfolio-918s.onrender.com']ssName="relative z-10 w-full max-w-3xl max-h-[92vh] overflow-y-auto rounded-2xl bg-[#FAF7F2] dark:bg-[#0A1224] border border-[#163973]/20 dark:border-[#2A5CB8]/30 shadow-2xl text-[#122444] dark:text-[#FAF7F2] flex flex-col">
+      <div className="relative z-10 w-full max-w-3xl max-h-[92vh] overflow-y-auto rounded-2xl bg-[#FAF7F2] dark:bg-[#0A1224] border border-[#163973]/20 dark:border-[#2A5CB8]/30 shadow-2xl text-[#122444] dark:text-[#FAF7F2] flex flex-col">
         {/* Sticky Top Bar */}
         <div className="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-[#FAF7F2]/95 dark:bg-[#0A1224]/95 backdrop-blur border-b border-[#163973]/15 dark:border-[#2A5CB8]/20">
           <button
