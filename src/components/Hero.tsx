@@ -1,215 +1,145 @@
-import React from 'react';
-import { ArrowDown, FileText, ChevronDown } from 'lucide-react';
-import { PERSONAL_INFO } from '../data/portfolioData';
+import React, { useState } from 'react';
 
 interface HeroProps {
-  onOpenResume: () => void;
-  onExploreProjects: () => void;
-  onContactClick: () => void;
+  onOpenResume?: () => void;
+  onExploreProjects?: () => void;
+  onContactClick?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenResume, onExploreProjects, onContactClick }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenResume, onExploreProjects }) => {
+  const [photoSrc, setPhotoSrc] = useState<string>(() => {
+    return localStorage.getItem('omito_profile_photo') || '/profile.webp';
+  });
+
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    if (!e.currentTarget.src.includes('flovatieno.webp')) {
+      e.currentTarget.src = '/flovatieno.webp';
+      setPhotoSrc('/flovatieno.webp');
+    }
+  };
+
+  const handleScrollToExplore = () => {
+    if (onExploreProjects) {
+      onExploreProjects();
+      return;
+    }
+    const target = document.getElementById('work') || document.getElementById('expertise');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col justify-between items-center pt-28 pb-12 px-4 sm:px-6 overflow-hidden bg-[#0F1117] text-white"
+      className="relative min-h-screen lg:min-h-[105vh] flex items-center bg-[#0B0D17] text-white overflow-hidden border-b border-[#19396D]/20 pt-28 sm:pt-36 pb-24 sm:pb-32 lg:py-28 select-none"
     >
-      {/* Background 3D Geometric Scene (Cubes, Glows, and Ambient Light from Screenshot 1) */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center">
-        {/* Ambient background glows */}
-        <div className="absolute w-[500px] h-[500px] rounded-full bg-[#19396D]/25 blur-[120px] -top-20 -left-20" />
-        <div className="absolute w-[450px] h-[450px] rounded-full bg-[#C49B5B]/15 blur-[100px] top-1/4 right-0" />
-        <div className="absolute w-[600px] h-[600px] rounded-full bg-[#0A1224]/80 blur-[80px] -bottom-20" />
+      {/* ========================================================================= */}
+      {/* 1. CLEAN, MINIMAL & SERENE AMBIENT BACKGROUND (No clutter, No crowded SVGs)*/}
+      {/* ========================================================================= */}
+      
+      {/* Soft atmospheric violet-indigo halo behind the portrait */}
+      <div className="absolute right-0 lg:right-12 top-1/2 -translate-y-1/2 w-[550px] h-[550px] rounded-full bg-gradient-to-tr from-[#7C3AED]/22 via-[#6366F1]/16 to-[#38BDF8]/10 blur-[150px] pointer-events-none" />
 
-        {/* 3D Geometric Floating Cubes & Glowing Orb Illustration */}
-        <div className="relative w-full max-w-4xl h-[420px] opacity-85 select-none -mt-8">
-          <svg
-            viewBox="0 0 800 500"
-            className="w-full h-full object-contain filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.7)]"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Defs: Gradients and filters */}
-            <defs>
-              <linearGradient id="orbGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#FFE4BC" />
-                <stop offset="40%" stopColor="#FF9B53" />
-                <stop offset="100%" stopColor="#DD5226" />
-              </linearGradient>
+      {/* Subtle deep sapphire ambient bloom on top-left */}
+      <div className="absolute -left-20 top-1/4 w-[450px] h-[450px] rounded-full bg-[#19396D]/15 blur-[160px] pointer-events-none" />
 
-              {/* Cube 1 (Center Large Dark Navy / Gunmetal Cube) */}
-              <linearGradient id="cube1Top" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#4A3B30" />
-                <stop offset="100%" stopColor="#2A2420" />
-              </linearGradient>
-              <linearGradient id="cube1Left" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#1E1A17" />
-                <stop offset="100%" stopColor="#110F0E" />
-              </linearGradient>
-              <linearGradient id="cube1Right" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#8C5C38" />
-                <stop offset="100%" stopColor="#3D2516" />
-              </linearGradient>
+      {/* ========================================================================= */}
+      {/* 2. MAIN 2-COLUMN HERO SHOWCASE                                            */}
+      {/* ========================================================================= */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 py-8 lg:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-center">
+          
+          {/* ===================================================================== */}
+          {/* LEFT COLUMN: Expands > half page width (lg:col-span-8 / 66.7% width) */}
+          {/* ===================================================================== */}
+          <div className="lg:col-span-8 space-y-6 sm:space-y-8 text-left">
+            
+            {/* Sentence 1: Big, bold & strictly spans two lines */}
+            <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-[4.25rem] xl:text-[5rem] text-white tracking-tight leading-[1.08] w-full">
+              <span className="block whitespace-normal sm:whitespace-nowrap">
+                I’m{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C084FC] via-[#A78BFA] to-[#9370DB]">
+                  Elizabeth Omito
+                </span>
+                ,
+              </span>
+              <span className="block whitespace-normal sm:whitespace-nowrap text-white">
+                a software developer.
+              </span>
+            </h1>
 
-              {/* Cube 2 (Upper Left Navy Cube) */}
-              <linearGradient id="cube2Top" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#253C68" />
-                <stop offset="100%" stopColor="#182A4D" />
-              </linearGradient>
-              <linearGradient id="cube2Left" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#111B30" />
-                <stop offset="100%" stopColor="#0B1220" />
-              </linearGradient>
-              <linearGradient id="cube2Right" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#1A2D53" />
-                <stop offset="100%" stopColor="#0E1930" />
-              </linearGradient>
+            {/* Sentence 2: Maintained clear & concise subtitle */}
+            <p className="font-sans text-neutral-300 text-base sm:text-lg lg:text-xl max-w-2xl leading-relaxed font-normal">
+              My work connects <strong className="text-white font-medium">software development</strong>, <strong className="text-white font-medium">project management</strong>, and <strong className="text-white font-medium">DevOps</strong> to build and ship reliable systems.
+            </p>
 
-              {/* Cube 3 (Lower Right Charcoal Navy Cube) */}
-              <linearGradient id="cube3Top" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#202A3C" />
-                <stop offset="100%" stopColor="#131B2A" />
-              </linearGradient>
-              <linearGradient id="cube3Left" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#0D121D" />
-                <stop offset="100%" stopColor="#06090F" />
-              </linearGradient>
+            {/* CTA Button Row (Wider buttons) */}
+            <div className="pt-3 flex flex-wrap items-center gap-4 sm:gap-5">
+              {/* Primary Purple Gradient Button: Download CV */}
+              <button
+                type="button"
+                onClick={onOpenResume}
+                className="min-w-[175px] sm:min-w-[200px] px-9 sm:px-11 py-3.5 rounded-xl bg-gradient-to-r from-[#5B46EB] via-[#7C3AED] to-[#9333EA] hover:from-[#4E39DC] hover:to-[#7E22CE] text-white font-medium text-xs sm:text-sm font-sans shadow-lg shadow-[#7C3AED]/30 hover:shadow-[#7C3AED]/50 hover:scale-[1.02] transition-all duration-300 cursor-pointer text-center flex items-center justify-center"
+              >
+                <span>Download CV</span>
+              </button>
 
-              {/* Glowing Orb radial blur */}
-              <radialGradient id="sunSphere" cx="40%" cy="40%" r="60%">
-                <stop offset="0%" stopColor="#FFF1D6" />
-                <stop offset="45%" stopColor="#FFA654" />
-                <stop offset="90%" stopColor="#D9491D" />
-                <stop offset="100%" stopColor="#882008" />
-              </radialGradient>
-              <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="16" />
-              </filter>
-            </defs>
+              {/* Secondary Explore Button */}
+              <button
+                type="button"
+                onClick={handleScrollToExplore}
+                className="min-w-[175px] sm:min-w-[200px] px-9 sm:px-11 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-neutral-300 hover:text-white font-medium text-xs sm:text-sm font-sans transition-all duration-200 cursor-pointer text-center flex items-center justify-center"
+              >
+                Explore Projects
+              </button>
+            </div>
 
-            {/* Glowing warm orb */}
-            <circle cx="445" cy="115" r="28" fill="#FF8D36" opacity="0.6" filter="url(#softGlow)" />
-            <circle cx="445" cy="115" r="18" fill="url(#sunSphere)" />
+          </div>
 
-            {/* Back Left Cube (Deep Navy/Indigo Cube) */}
-            <g transform="translate(-10, -20)">
-              {/* Top Face */}
-              <polygon points="310,120 380,80 320,50 250,90" fill="url(#cube2Top)" />
-              {/* Left Face */}
-              <polygon points="250,90 320,50 320,150 250,190" fill="url(#cube2Left)" />
-              {/* Right Face */}
-              <polygon points="320,50 380,80 380,180 320,150" fill="url(#cube2Right)" />
-            </g>
+          {/* ===================================================================== */}
+          {/* RIGHT COLUMN: Tall Fully Rounded Pill Avatar (lg:col-span-4)          */}
+          {/* ===================================================================== */}
+          <div className="lg:col-span-4 flex justify-center lg:justify-end items-center">
+            <div className="relative">
 
-            {/* Center Main Isometric Cube (Illuminated by warm light) */}
-            <g transform="translate(40, 20)">
-              {/* Top Face */}
-              <polygon points="410,210 510,150 430,105 330,165" fill="url(#cube1Top)" />
-              {/* Left Face (Dark shadow side) */}
-              <polygon points="330,165 410,210 410,340 330,295" fill="url(#cube1Left)" />
-              {/* Right Face (Lit by warm orb) */}
-              <polygon points="410,210 510,150 510,280 410,340" fill="url(#cube1Right)" />
-            </g>
+              {/* Floating 3D Sparkle Star 1 (Top-Right, matching d2.jpg) */}
+              <div className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 z-20 text-[#A78BFA] filter drop-shadow-[0_0_15px_rgba(167,139,250,0.7)] animate-pulse">
+                <svg className="w-10 h-10 sm:w-12 sm:h-12 fill-current" viewBox="0 0 24 24">
+                  <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z" />
+                </svg>
+              </div>
 
-            {/* Bottom Right Cube (Dark Matte Slate Cube) */}
-            <g transform="translate(60, 40)">
-              {/* Top Face */}
-              <polygon points="480,310 550,270 495,240 425,280" fill="url(#cube3Top)" />
-              {/* Left Face */}
-              <polygon points="425,280 480,310 480,390 425,360" fill="url(#cube3Left)" />
-              {/* Right Face */}
-              <polygon points="480,310 550,270 550,350 480,390" fill="#1C273C" />
-            </g>
+              {/* Floating 3D Sparkle Star 2 (Small offset, matching d2.jpg) */}
+              <div className="absolute top-6 -right-7 sm:top-8 sm:-right-8 z-20 text-[#C084FC] filter drop-shadow-[0_0_10px_rgba(192,132,252,0.8)]">
+                <svg className="w-6 h-6 sm:w-7 sm:h-7 fill-current" viewBox="0 0 24 24">
+                  <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z" />
+                </svg>
+              </div>
 
-            {/* Floating Small Cylinder Accent */}
-            <ellipse cx="495" cy="180" rx="14" ry="7" fill="#253550" />
-            <path d="M481,180 v30 a14,7 0 0,0 28,0 v-30 Z" fill="#152134" />
-          </svg>
+              {/* Tall Pill Capsule Avatar Frame (Fully rounded top AND bottom, thin border) */}
+              <div className="relative w-64 h-88 sm:w-80 sm:h-[460px] lg:w-[350px] lg:h-[510px] rounded-full p-1 bg-gradient-to-b from-[#8B5CF6]/45 via-[#6366F1]/20 to-[#19396D]/15 shadow-[0_0_50px_rgba(124,58,237,0.25)] border border-[#8B5CF6]/30">
+                
+                {/* Inner Masked Avatar Container with hairline border */}
+                <div className="relative w-full h-full rounded-full overflow-hidden bg-gradient-to-b from-[#181A2A] to-[#0B0D17] border border-white/15">
+                  <img
+                    src={photoSrc}
+                    alt="Elizabeth Omito"
+                    onError={handleImageError}
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover object-top filter contrast-[1.06] brightness-[0.98] transition-transform duration-700 ease-out hover:scale-105"
+                  />
+
+                  {/* Gentle studio ambient light reflection overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#7C3AED]/25 via-transparent to-[#38BDF8]/15 pointer-events-none" />
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
         </div>
-      </div>
-
-      {/* Main Center Typography (Exact Match to Screenshot 1) */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center my-auto">
-        {/* Massive Sans/Display Title */}
-        <h1 className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] tracking-tight uppercase text-white drop-shadow-2xl leading-[0.95]">
-          OMITO ELIZABETH
-        </h1>
-
-        {/* Subtitle in Monospace */}
-        <p className="font-mono text-xs sm:text-sm md:text-base tracking-[0.22em] uppercase text-neutral-300 mt-4 sm:mt-6 font-semibold">
-          SOFTWARE ENGINEER, PROJECT MANAGER & DEVOPS ENGINEER
-        </p>
-
-        {/* Action Pills / Quick Nav */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mt-8">
-          <button
-            type="button"
-            onClick={onExploreProjects}
-            className="px-5 py-2.5 rounded-lg bg-[#19396D] hover:bg-[#142F5E] text-[#FAF7F2] text-xs font-mono font-bold border border-[#38BDF8]/40 shadow-lg shadow-[#19396D]/30 transition-all flex items-center gap-2 cursor-pointer"
-          >
-            <span>Explore Work</span>
-            <ArrowDown className="w-3.5 h-3.5 text-[#38BDF8]" />
-          </button>
-
-          <button
-            type="button"
-            onClick={onOpenResume}
-            className="px-5 py-2.5 rounded-lg border border-neutral-700 hover:border-[#38BDF8] bg-black/40 backdrop-blur-sm text-xs font-mono text-neutral-200 transition-all flex items-center gap-2 cursor-pointer"
-          >
-            <FileText className="w-3.5 h-3.5 text-[#38BDF8]" />
-            <span>Curriculum Vitae</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={onContactClick}
-            className="px-5 py-2.5 rounded-lg hover:text-[#38BDF8] text-neutral-400 text-xs font-mono transition-colors cursor-pointer"
-          >
-            <span>// Contact Me</span>
-          </button>
-        </div>
-      </div>
-
-      {/* "AS FEATURED IN" / Credentials Bar (Exact Match to Screenshot 1) */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto mt-12 mb-6">
-        <p className="font-mono text-[11px] tracking-[0.25em] uppercase text-neutral-500 text-center mb-6">
-          AS FEATURED IN & CREDENTIALS
-        </p>
-
-        {/* Horizontal Brand Badges with Terminal Style */}
-        <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 md:gap-16 opacity-75 hover:opacity-100 transition-opacity font-mono text-xs sm:text-sm">
-          <div className="flex items-center gap-1 text-white hover:text-[#38BDF8] transition-colors">
-            <span className="text-[#38BDF8]">&lt;</span>
-            <span className="font-bold">zone01</span>
-            <span className="text-neutral-400">kisumu</span>
-          </div>
-
-          <div className="flex items-center gap-1.5 text-neutral-200 hover:text-[#38BDF8] transition-colors">
-            <span className="font-bold tracking-wider">JOOUST</span>
-            <span className="text-[10px] text-[#38BDF8] uppercase">Computer Security And Forensics</span>
-          </div>
-
-          <div className="flex items-center gap-1 text-neutral-200 hover:text-emerald-400 transition-colors">
-            <span className="font-black text-emerald-400">She Code</span>
-            <span className="text-neutral-300">Africa</span>
-          </div>
-
-          <div className="flex items-center gap-1.5 text-neutral-300 hover:text-cyan-400 transition-colors">
-            <span className="font-mono">DigiKen</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8]" />
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Mouse Scroll Indicator (Exact Match to Screenshot 1) */}
-      <div className="relative z-10 flex flex-col items-center mt-4">
-        <button
-          onClick={onExploreProjects}
-          aria-label="Scroll to content"
-          className="w-6 h-10 rounded-full border-2 border-neutral-600 hover:border-[#38BDF8] flex items-start justify-center p-1.5 transition-colors cursor-pointer"
-        >
-          <span className="w-1.5 h-2.5 rounded-full bg-[#38BDF8] animate-bounce" />
-        </button>
       </div>
     </section>
   );

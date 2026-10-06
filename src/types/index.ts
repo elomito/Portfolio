@@ -4,7 +4,8 @@ export interface Project {
   id: string;
   title: string;
   tagline: string;
-  category: 'Streaming & Media' | 'FinTech & Web3' | 'Logistics & Realtime' | 'DevOps & Security';
+  projectType: 'internal' | 'personal';
+  category: 'Streaming & Media' | 'FinTech & Web3' | 'Logistics & Realtime' | 'DevOps & Security' | 'Systems & WebSockets';
   techStack: string[];
   description: string;
   problem: string;
@@ -16,7 +17,29 @@ export interface Project {
   hasSimulator?: 'wapi' | 'propersats' | 'sendme' | 'bandit';
   featured: boolean;
   year: string;
+  imageUrl?: string;
+  role?: string;
+  roleDescription?: string;
+  focusAreas?: string[];
+  keyContribution?: string;
+  recognition?: string;
+  productVision?: string;
+  useCases?: string[];
+  howItWorks?: string[];
+  deployedStatus?: 'deployed' | 'in_development';
 }
+
+export interface HobbyItem {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  highlights: string[];
+  icon: string;
+  image: string;
+  areasExplore?: { label?: string; text: string }[];
+}
+
 
 export interface BlogPost {
   id: string;

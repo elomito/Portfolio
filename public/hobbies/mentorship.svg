@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="100%" height="100%">
+  <defs>
+    <linearGradient id="mentorGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1E1338" />
+      <stop offset="50%" stop-color="#311956" />
+      <stop offset="100%" stop-color="#0A0C16" />
+    </linearGradient>
+    <linearGradient id="purpleAccent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#A855F7" />
+      <stop offset="100%" stop-color="#6366F1" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="750" fill="url(#mentorGrad)" />
+
+  <!-- Collaborative Circle Ambient Glow -->
+  <circle cx="600" cy="360" r="280" fill="#7C3AED" opacity="0.12" filter="blur(50px)" />
+  <circle cx="360" cy="300" r="180" fill="#EC4899" opacity="0.1" filter="blur(40px)" />
+
+  <!-- Center Card UI -->
+  <g transform="translate(200, 100)">
+    <rect width="800" height="520" rx="20" fill="#111526" stroke="#372A5C" stroke-width="2" />
+    
+    <!-- Header banner -->
+    <rect width="800" height="70" rx="20" fill="#1C1836" />
+    <circle cx="45" cy="35" r="18" fill="url(#purpleAccent)" />
+    <!-- Users icon inside circle -->
+    <circle cx="45" cy="31" r="5" fill="#FFFFFF" />
+    <path d="M35 44 C35 39 55 39 55 44" fill="#FFFFFF" />
+    
+    <text x="80" y="34" fill="#FFFFFF" font-family="'Inter', sans-serif" font-weight="800" font-size="18">Technovation &amp; She Code Africa</text>
+    <text x="80" y="52" fill="#A855F7" font-family="'Inter', sans-serif" font-size="12" font-weight="600">Community Mentorship · Women in Tech</text>
+
+    <!-- Mentorship Pillars Grid -->
+    <g transform="translate(40, 100)">
+      <!-- Pillar 1 -->
+      <rect width="345" height="175" rx="12" fill="#181B30" stroke="#2B264E" stroke-width="1.5" />
+      <text x="24" y="38" fill="#F472B6" font-family="'Inter', sans-serif" font-weight="700" font-size="16">Technovation Girls Mentorship</text>
+      <text x="24" y="68" fill="#CBD5E1" font-family="'Inter', sans-serif" font-size="13" width="300">
+        Empowering young girls to identify community
+      </text>
+      <text x="24" y="90" fill="#CBD5E1" font-family="'Inter', sans-serif" font-size="13">
+        challenges, build mobile &amp; web MVPs,
+      </text>
+      <text x="24" y="112" fill="#CBD5E1" font-family="'Inter', sans-serif" font-size="13">
+        and pitch entrepreneurial solutions.
+      </text>
+      <rect x="24" y="132" width="130" height="24" rx="6" fill="#F472B6" opacity="0.15" />
+      <text x="32" y="148" fill="#F472B6" font-family="monospace" font-size="11" font-weight="700">★ Student Mentor</text>
+
+      <!-- Pillar 2 -->
+      <g transform="translate(375, 0)">
+        <rect width="345" height="175" rx="12" fill="#181B30" stroke="#2B264E" stroke-width="1.5" />
+        <text x="24" y="38" fill="#A855F7" font-family="'Inter', sans-serif" font-weight="700" font-size="16">She Code Africa Member</text>
+        <text x="24" y="68" fill="#CBD5E1" font-family="'Inter', sans-serif" font-size="13">
+          Active participant in technical roundtables,
+        </text>
+        <text x="24" y="90" fill="#CBD5E1" font-family="'Inter', sans-serif" font-size="13">
+          peer debugging sprints, and career
+        </text>
+        <text x="24" y="112" fill="#CBD5E1" font-family="'Inter', sans-serif" font-size="13">
+          visibility conversations for female engineers.
+        </text>
+        <rect x="24" y="132" width="150" height="24" rx="6" fill="#A855F7" opacity="0.15" />
+        <text x="32" y="148" fill="#C084FC" font-family="monospace" font-size="11" font-weight="700">♥ Community Advocate</text>
+      </g>
+    </g>
+
+    <!-- Bottom Quote Banner -->
+    <g transform="translate(40, 310)">
+      <rect width="720" height="165" rx="12" fill="#16182E" stroke="#2A244D" stroke-width="1.5" />
+      <text x="30" y="42" fill="#E2E8F0" font-family="'Inter', serif" font-style="italic" font-size="15">
+        "Creating spaces where young people, especially girls and women, can explore
+      </text>
+      <text x="30" y="68" fill="#E2E8F0" font-family="'Inter', serif" font-style="italic" font-size="15">
+        technology, build confidence, and see themselves as capable contributors."
+      </text>
+      <line x1="30" y1="95" x2="690" y2="95" stroke="#2B264E" stroke-width="1" />
+      <text x="30" y="125" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="13">
+        Mentorship Impact: 50+ students guided · 10+ community workshops facilitated
+      </text>
+    </g>
+  </g>
+
+  <!-- Bottom Label -->
+  <text x="600" y="695" text-anchor="middle" fill="#94A3B8" font-family="'Inter', sans-serif" font-weight="600" font-size="18" letter-spacing="2">
+    COMMUNITY MENTORSHIP · WOMEN IN TECH · TECHNOVATION
+  </text>
+</svg>

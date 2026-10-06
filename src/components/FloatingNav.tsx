@@ -6,7 +6,7 @@ interface FloatingNavProps {
   activeSection: string;
 }
 
-export const FloatingNav: React.FC<FloatingNavProps> = ({ sections, activeSection }) => {
+export const FloatingNav: React.FC<FloatingNavProps> = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -21,44 +21,9 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ sections, activeSectio
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <>
-      {/* Right Edge Circular Progress Indicator (Screenshot 2 & 4 match) */}
-      <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-center gap-4">
-        {sections.map((sec) => {
-          const isActive = activeSection === sec.id;
-          return (
-            <button
-              key={sec.id}
-              onClick={() => scrollToSection(sec.id)}
-              className="group relative flex items-center justify-center p-1 cursor-pointer"
-              aria-label={`Jump to ${sec.label}`}
-            >
-              <span
-                className={`transition-all duration-300 rounded-full ${
-                  isActive
-                    ? 'w-3 h-3 bg-[#38BDF8] ring-4 ring-[#38BDF8]/20 shadow-[0_0_12px_#38bdf8]'
-                    : 'w-2 h-2 bg-neutral-600 group-hover:bg-neutral-400'
-                }`}
-              />
-
-              {/* Tooltip on hover */}
-              <span className="absolute right-7 px-2 py-1 rounded bg-[#0F1117] border border-neutral-700 text-[10px] font-mono text-[#38BDF8] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg">
-                // {sec.label}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Floating Back to Top Button (Screenshots 1-7 Exact Match) */}
+      {/* Floating Back to Top Button */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}

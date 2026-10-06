@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <rect width="800" height="800" fill="#0A0B0E" />
+  
+  <g transform="translate(0, -30)">
+    <!-- White Letter P -->
+    <path 
+      d="M350 190 H610 C670 190 710 230 710 295 C710 360 670 400 610 400 H440 V520 H350 Z 
+         M440 260 V330 H600 C630 330 650 315 650 295 C650 275 630 260 600 260 Z" 
+      fill="#FFFFFF" 
+    />
+    
+    <!-- Orange Lightning Bolt slicing across -->
+    <polygon 
+      points="500,430 370,580 435,580 390,690 525,530 460,530" 
+      fill="#F7931A" 
+    />
+  </g>
+  
+  <!-- Text Label PROPERASATS -->
+  <text 
+    x="400" 
+    y="605" 
+    text-anchor="middle" 
+    fill="#FFFFFF" 
+    font-family="'Inter', 'Space Grotesk', system-ui, sans-serif" 
+    font-size="44" 
+    font-weight="800" 
+    letter-spacing="9"
+  >
+    PROPERASATS
+  </text>
+  
+  <!-- Sub-label LAND • LND • BITCOIN -->
+  <text 
+    x="400" 
+    y="660" 
+    text-anchor="middle" 
+    fill="#F7931A" 
+    font-family="'Inter', monospace, system-ui, sans-serif" 
+    font-size="19" 
+    font-weight="700" 
+    letter-spacing="11"
+  >
+    LAND • LND • BITCOIN
+  </text>
+</svg>

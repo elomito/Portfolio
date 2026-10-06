@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Mail, Phone, Send, CheckCircle2, Copy, Check, MessageSquare } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Mail, Phone, Send, CheckCircle2, Copy, Check, MessageSquare, Camera } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { ContactFormState } from '../types';
 
@@ -20,6 +20,88 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
   const [copied, setCopied] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  // Reviewer Photos State
+  const [reviewerPhotos, setReviewerPhotos] = useState<{
+    flovian?: string;
+    vallery?: string;
+    clinton?: string;
+  }>({});
+
+  const reviewerFileInputRef = useRef<HTMLInputElement>(null);
+  const [activeReviewerTarget, setActiveReviewerTarget] = useState<'flovian' | 'vallery' | 'clinton' | 'any'>('any');
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('omito_reviewer_photos');
+      if (saved) {
+        setReviewerPhotos(JSON.parse(saved));
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  const saveReviewerPhoto = async (key: 'flovian' | 'vallery' | 'clinton', filename: string, base64: string) => {
+    setReviewerPhotos((prev) => {
+      const next = { ...prev, [key]: base64 };
+      try {
+        localStorage.setItem('omito_reviewer_photos', JSON.stringify(next));
+      } catch {
+        // ignore
+      }
+      return next;
+    });
+
+    try {
+      await fetch('/api/upload-photo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filename, base64 }),
+      });
+    } catch {
+      // server persistence is optional fallback
+    }
+  };
+
+  const handleReviewerFiles = (files: FileList | null, explicitTarget?: 'flovian' | 'vallery' | 'clinton') => {
+    if (!files || files.length === 0) return;
+    const currentTarget = explicitTarget || activeReviewerTarget;
+
+    Array.from(files).forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64 = e.target?.result as string;
+        if (!base64) return;
+
+        const nameLower = file.name.toLowerCase();
+        let target: 'flovian' | 'vallery' | 'clinton' | null = null;
+
+        if (nameLower.includes('flovian')) {
+          target = 'flovian';
+        } else if (nameLower.includes('vallery')) {
+          target = 'vallery';
+        } else if (nameLower.includes('clinton')) {
+          target = 'clinton';
+        } else if (currentTarget !== 'any') {
+          target = currentTarget;
+        }
+
+        if (target) {
+          saveReviewerPhoto(target, file.name, base64);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const openPickerFor = (target: 'flovian' | 'vallery' | 'clinton') => {
+    setActiveReviewerTarget(target);
+    if (reviewerFileInputRef.current) {
+      reviewerFileInputRef.current.value = '';
+      reviewerFileInputRef.current.click();
+    }
+  };
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(PERSONAL_INFO.email);
@@ -44,11 +126,11 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
   return (
     <section id="contact" className="bg-[#121316] text-white border-b border-[#19396D]/20 scroll-mt-12 overflow-hidden">
       {/* 2-Column Split Layout (Exact Match to Screenshot 7) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[620px]">
+      <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[500px]">
         {/* ========================================================================= */}
         {/* LEFT COLUMN: Monospace Text & Contact Channels (Screenshot 7 Exact Match) */}
         {/* ========================================================================= */}
-        <div className="lg:col-span-6 p-8 sm:p-14 lg:p-20 xl:p-24 flex flex-col justify-between space-y-10">
+        <div className="lg:col-span-6 p-8 sm:p-10 lg:p-14 xl:p-16 flex flex-col justify-between space-y-8">
           <div className="space-y-8 max-w-xl">
             {/* Title */}
             <h2 className="font-display font-black text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.08]">
@@ -118,6 +200,28 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
               </div>
 
               <div>
+                <a
+                  href={PERSONAL_INFO.devto}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-[#38BDF8] transition-colors"
+                >
+                  Dev.to
+                </a>
+              </div>
+
+              <div>
+                <a
+                  href={PERSONAL_INFO.x}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-[#38BDF8] transition-colors"
+                >
+                  X (Twitter)
+                </a>
+              </div>
+
+              <div>
                 <button
                   onClick={onOpenResume}
                   className="hover:text-[#38BDF8] transition-colors text-left cursor-pointer"
@@ -138,46 +242,73 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
               </div>
             </div>
           </div>
-
-          <div className="text-xs font-mono text-neutral-500 pt-6">
-            // Omito Elizabeth · Software Engineer, Project Manager & DevOps Practitioner · Kisumu & Nairobi
-          </div>
         </div>
 
         {/* ========================================================================= */}
         {/* RIGHT COLUMN: 3 Contiguous Solid Colored Boxes (NO GAP, Screenshot 7 Match) */}
         {/* ========================================================================= */}
-        <div className="lg:col-span-6 grid grid-cols-1 md:grid-cols-2 gap-0 select-none">
-          {/* BOX 1: Tall Solid Purple Box (Exact Color #5b4677ff from Screenshot 7) */}
-          <div className="bg-[#A259FF] text-white p-8 sm:p-10 lg:p-12 flex flex-col justify-between min-h-[380px] md:min-h-full">
-            {/* Top Row: Quote mark + Circular Avatar */}
+        <div
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={(e) => {
+            e.preventDefault();
+            handleReviewerFiles(e.dataTransfer.files);
+          }}
+          className="lg:col-span-6 grid grid-cols-1 md:grid-cols-2 gap-0 select-none relative"
+        >
+          {/* Hidden File Input for Reviewer Photos */}
+          <input
+            ref={reviewerFileInputRef}
+            type="file"
+            multiple
+            accept="image/*,.webp,.jpeg,.jpg,.png"
+            className="hidden"
+            onChange={(e) => handleReviewerFiles(e.target.files)}
+          />
+
+          {/* BOX 1: Tall Solid Purple Box (Flovian Owiti) */}
+          <div className="bg-[#A259FF] text-white p-7 sm:p-9 lg:p-11 flex flex-col justify-between min-h-[380px] md:min-h-full">
+            {/* Top Row: Quote mark + Circular Avatar Photo */}
             <div className="flex items-start justify-between">
               {/* Massive White Double Quote Glyphs */}
-              <svg className="w-14 h-14 text-white fill-current opacity-95 shrink-0" viewBox="0 0 24 24">
+              <svg className="w-12 h-12 text-white fill-current opacity-95 shrink-0" viewBox="0 0 24 24">
                 <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
               </svg>
 
-              {/* Circular Avatar Photo (Mark Greenspan) */}
-              <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/60 shadow-lg shrink-0 bg-neutral-900">
+              {/* Circular Avatar Photo Badge (Flovian Owiti) */}
+              <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-white/80 shadow-xl shrink-0 bg-neutral-900 ring-2 ring-white/20">
                 <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
-                  alt="Mark Greenspan"
-                  className="w-full h-full object-cover"
+                  src={reviewerPhotos.flovian || '/flovian.webp'}
+                  alt="Flovian Owiti"
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover object-top"
+                  onError={(e) => {
+                    if (e.currentTarget.src.includes('flovian.webp')) {
+                      e.currentTarget.src = '/Flovian%20Owiti.webp';
+                    } else if (!e.currentTarget.src.includes('flovian-owiti.webp')) {
+                      e.currentTarget.src = '/reviewers/flovian-owiti.webp';
+                    }
+                  }}
                 />
+                <div className="absolute inset-0 flex items-center justify-center text-white font-display font-black text-lg pointer-events-none -z-10">
+                  FO
+                </div>
               </div>
             </div>
 
             {/* Testimonial Quote Text */}
-            <p className="text-xs sm:text-sm text-white/95 leading-relaxed font-sans my-8">
-              I have had the opportunity to work closely with Elizabeth Omito during her Project Management shadowing experience on the LLF project, and what stands out to me is how naturally she connects technology, people and delivery.
-
-              Elizabeth is not the kind of project manager who simply tracks tasks on a board. She is curious about what is happening underneath the task. When the team is discussing development, design, QA or technical challenges, she takes the initiative to understand the context, ask the right questions and connect the discussion back to the project objectives. As a result Elizabeth has been a highly valued and impactful member of our team.
-            </p>
+            <div className="text-xs sm:text-[13px] text-white/95 leading-relaxed font-sans my-6 space-y-3">
+              <p>
+                I have had the opportunity to work closely with Elizabeth Omito during her Project Management shadowing experience on the LLF project, and what stands out to me is how naturally she connects technology, people and delivery.
+              </p>
+              <p>
+                Elizabeth is not the kind of project manager who simply tracks tasks on a board. She is curious about what is happening underneath the task. When the team is discussing development, design, QA or technical challenges, she takes the initiative to understand the context, ask the right questions and connect the discussion back to the project objectives. As a result Elizabeth has been a highly valued and impactful member of our team.
+              </p>
+            </div>
 
             {/* Author Attribution */}
-            <div className="space-y-0.5">
+            <div className="space-y-0.5 pt-2 border-t border-white/20">
               <div className="font-bold text-sm sm:text-base text-white">
-                – Flovian Owiti
+                Flovian Owiti
               </div>
               <div className="text-xs text-white/80">
                 Project Manager at Zone01 Kisumu
@@ -187,39 +318,49 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
 
           {/* RIGHT HALF: Two Vertically Stacked Solid Blocks (Blue & Deep Purple) */}
           <div className="flex flex-col gap-0">
-            {/* BOX 2: Solid Electric Blue (Exact Color #5170a0ff from Screenshot 7) */}
-            <div className="bg-[#0066FF] text-white p-8 sm:p-10 flex flex-col justify-between flex-1 min-h-[290px]">
-              {/* Top Row: Quote mark + Circular Avatar */}
+            {/* BOX 2: Solid Electric Blue (Vallery Odinga) */}
+            <div className="bg-[#0066FF] text-white p-7 sm:p-9 flex flex-col justify-between flex-1 min-h-[310px]">
+              {/* Top Row: Quote mark + Circular Avatar Photo */}
               <div className="flex items-start justify-between">
-                <svg className="w-12 h-12 text-white fill-current opacity-95 shrink-0" viewBox="0 0 24 24">
+                <svg className="w-10 h-10 text-white fill-current opacity-95 shrink-0" viewBox="0 0 24 24">
                   <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
                 </svg>
 
-                {/* Circular Avatar Photo (Wilfried Hajek) */}
-                <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white/60 shadow-lg shrink-0 bg-neutral-900">
+                {/* Circular Avatar Photo Badge (Vallery Odinga) */}
+                <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-white/80 shadow-xl shrink-0 bg-neutral-900 ring-2 ring-white/20">
                   <img
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"
-                    alt="Wilfried Hajek"
-                    className="w-full h-full object-cover"
+                    src={reviewerPhotos.vallery || '/vallery.webp'}
+                    alt="Vallery Odinga"
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover object-center"
+                    onError={(e) => {
+                      if (e.currentTarget.src.includes('vallery.webp')) {
+                        e.currentTarget.src = '/Vallery%20Odinga.webp';
+                      } else if (!e.currentTarget.src.includes('vallery-odinga.webp')) {
+                        e.currentTarget.src = '/reviewers/vallery-odinga.webp';
+                      }
+                    }}
                   />
+                  <div className="absolute inset-0 flex items-center justify-center text-white font-display font-black text-base pointer-events-none -z-10">
+                    VO
+                  </div>
                 </div>
               </div>
 
               {/* Quote Text */}
-              <p className="text-xs sm:text-sm text-white/95 leading-relaxed font-sans my-6">
-
-                I got to interact with Elizabeth through the open-source and Bitcoin developer community, and what stands out to me is her curiosity, willingness to learn, and ability to turn new concepts into practical projects.
-
-                Elizabeth approaches technology with a strong problem-solving mindset. She is not afraid to ask questions, dig into how things work, and move from simply understanding an idea to actually building with it. Her growing interest in Bitcoin, Lightning, open-source development, and software engineering reflects someone who is intentional about expanding her technical depth.
-
-                I’m confident that Elizabeth will continue growing into a strong software engineer and contributor within the open-source ecosystem. Her curiosity, consistency, and willingness to learn make her someone worth watching.
-
-              </p>
+              <div className="text-xs sm:text-[13px] text-white/95 leading-relaxed font-sans my-4 space-y-2.5">
+                <p>
+                  Elizabeth approaches technology with a strong problem-solving mindset. She is not afraid to ask questions, dig into how things work, and move from simply understanding an idea to actually building with it. Her growing interest in Bitcoin, Lightning, open-source development, and software engineering reflects someone who is intentional about expanding her technical depth.
+                </p>
+                <p>
+                  I’m confident that Elizabeth will continue growing into a strong software engineer and contributor within the open-source ecosystem. Her curiosity, consistency, and willingness to learn make her someone worth watching.
+                </p>
+              </div>
 
               {/* Attribution */}
-              <div className="space-y-0.5">
+              <div className="space-y-0.5 pt-2 border-t border-white/20">
                 <div className="font-bold text-sm sm:text-base text-white">
-                  – Vallery Odinga
+                  Vallery Odinga
                 </div>
                 <div className="text-xs text-white/80">
                   Bitcoin Open Source Contributor
@@ -227,35 +368,49 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
               </div>
             </div>
 
-            {/* BOX 3: Solid Royal Violet Purple (Exact Color #9d63e9ff from Screenshot 7) */}
-            <div className="bg-[#8435E8] text-white p-8 sm:p-10 flex flex-col justify-between flex-1 min-h-[310px]">
-              {/* Top Row: Quote mark + Circular Avatar */}
+            {/* BOX 3: Solid Royal Violet Purple (Clinton Odhiambo) */}
+            <div className="bg-[#8435E8] text-white p-7 sm:p-9 flex flex-col justify-between flex-1 min-h-[310px]">
+              {/* Top Row: Quote mark + Circular Avatar Photo */}
               <div className="flex items-start justify-between">
-                <svg className="w-12 h-12 text-white fill-current opacity-95 shrink-0" viewBox="0 0 24 24">
+                <svg className="w-10 h-10 text-white fill-current opacity-95 shrink-0" viewBox="0 0 24 24">
                   <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
                 </svg>
 
-                {/* Circular Avatar Photo (Jonathan Castro) */}
-                <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white/60 shadow-lg shrink-0 bg-neutral-900">
+                {/* Circular Avatar Photo Badge (Clinton Odhiambo) */}
+                <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-white/80 shadow-xl shrink-0 bg-neutral-900 ring-2 ring-white/20">
                   <img
-                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80"
-                    alt="Jonathan Castro"
-                    className="w-full h-full object-cover"
+                    src={reviewerPhotos.clinton || '/clinton.webp'}
+                    alt="Clinton Odhiambo"
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover object-top"
+                    onError={(e) => {
+                      if (e.currentTarget.src.includes('clinton.webp')) {
+                        e.currentTarget.src = '/Clinton%20Odhiambo.webp';
+                      } else if (!e.currentTarget.src.includes('clinton-odhiambo.webp')) {
+                        e.currentTarget.src = '/reviewers/clinton-odhiambo.webp';
+                      }
+                    }}
                   />
+                  <div className="absolute inset-0 flex items-center justify-center text-white font-display font-black text-base pointer-events-none -z-10">
+                    CO
+                  </div>
                 </div>
               </div>
 
               {/* Quote Text */}
-              <p className="text-xs sm:text-sm text-white/95 leading-relaxed font-sans my-6">
-                Elizabeth is comfortable working with Git and Linux-based environments and has been gaining practical exposure to CI/CD, deployment workflows, environment configuration, and troubleshooting application and infrastructure issues. She approaches technical problems with curiosity and is willing to investigate issues from the application layer through to the underlying system.
-
-                I would recommend Elizabeth to opportunities where she can continue developing her DevOps skills while contributing to real engineering teams. She has the mindset, curiosity, and practical foundation needed to grow into a strong DevOps professional.
-              </p>
+              <div className="text-xs sm:text-[13px] text-white/95 leading-relaxed font-sans my-4 space-y-2.5">
+                <p>
+                  Elizabeth is comfortable working with Git and Linux-based environments and has been gaining practical exposure to CI/CD, deployment workflows, environment configuration, and troubleshooting application and infrastructure issues. She approaches technical problems with curiosity and is willing to investigate issues from the application layer through to the underlying system.
+                </p>
+                <p>
+                  I would recommend Elizabeth to opportunities where she can continue developing her DevOps skills while contributing to real engineering teams. She has the mindset, curiosity, and practical foundation needed to grow into a strong DevOps professional.
+                </p>
+              </div>
 
               {/* Attribution */}
-              <div className="space-y-0.5">
+              <div className="space-y-0.5 pt-2 border-t border-white/20">
                 <div className="font-bold text-sm sm:text-base text-white">
-                  – Clinton Odhiambo
+                  Clinton Odhiambo
                 </div>
                 <div className="text-xs text-white/80">
                   CEO Dev.wengi | Fullstack Developer

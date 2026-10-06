@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <!-- Outer Background Window Frame -->
+  <rect width="1200" height="675" fill="#090A0F" />
+
+  <!-- Top Window Header -->
+  <rect width="1200" height="38" fill="#161822" stroke="#232738" stroke-width="1" />
+  <circle cx="20" cy="19" r="6" fill="#EF4444" />
+  <circle cx="38" cy="19" r="6" fill="#F59E0B" />
+  <circle cx="56" cy="19" r="6" fill="#10B981" />
+  <text x="80" y="24" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="12">elomito@LAP-015: ~/bandit-password-saver (Python CLI + Google Sheets API)</text>
+
+  <!-- SPLIT SCREEN: LEFT SIDE (OverTheWire Bandit Web Lab) -->
+  <g transform="translate(0, 38)">
+    <rect width="590" height="637" fill="#0D0E15" stroke="#1F2333" stroke-width="1" />
+    
+    <!-- Browser Tab Bar -->
+    <rect width="590" height="32" fill="#131520" />
+    <text x="20" y="21" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="11">OverTheWire: Level Goal (Bandit 2 → 3)</text>
+    <rect x="250" y="6" width="320" height="20" rx="3" fill="#090A0F" />
+    <text x="260" y="20" fill="#64748B" font-family="monospace" font-size="10">https://overthewire.org/wargames/bandit/bandit3.html</text>
+
+    <!-- OverTheWire Logo & Header -->
+    <text x="30" y="75" fill="#E2E8F0" font-family="'Impact', sans-serif" font-size="28" letter-spacing="1">OverTheWire</text>
+    <text x="30" y="95" fill="#64748B" font-family="monospace" font-size="11">wargames • security labs • forensics</text>
+
+    <!-- Main Challenge Heading -->
+    <text x="30" y="145" fill="#38BDF8" font-family="system-ui, sans-serif" font-weight="700" font-size="22">Bandit Level 2 → Level 3</text>
+    
+    <text x="30" y="185" fill="#E2E8F0" font-family="system-ui, sans-serif" font-weight="600" font-size="14">Level Goal</text>
+    <text x="30" y="210" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="12" width="530">
+      The password for the next level is stored in a file called
+    </text>
+    <text x="30" y="230" fill="#FACC15" font-family="monospace" font-size="12">
+      --spaces in this filename--
+    </text>
+    <text x="210" y="230" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="12">
+      located in the home directory.
+    </text>
+
+    <!-- Commands to solve -->
+    <text x="30" y="275" fill="#E2E8F0" font-family="system-ui, sans-serif" font-weight="600" font-size="14">Commands you may need to solve this level</text>
+    <rect x="30" y="290" width="520" height="34" rx="4" fill="#161826" stroke="#2D334A" stroke-width="1" />
+    <text x="45" y="312" fill="#38BDF8" font-family="monospace" font-size="12">ls , cd , cat , file , du , find</text>
+
+    <!-- Helpful Reading -->
+    <text x="30" y="360" fill="#E2E8F0" font-family="system-ui, sans-serif" font-weight="600" font-size="14">Helpful Reading Material</text>
+    <text x="45" y="385" fill="#38BDF8" font-family="system-ui, sans-serif" font-size="12">• Google Search for "spaces in filename"</text>
+    <text x="45" y="405" fill="#38BDF8" font-family="system-ui, sans-serif" font-size="12">• Advanced Bash-Scripting Guide</text>
+
+    <!-- Level list sidebar simulation on left margin -->
+    <g transform="translate(30, 440)">
+      <rect width="200" height="150" rx="4" fill="#131520" stroke="#1F2333" stroke-width="1" />
+      <text x="12" y="22" fill="#4ADE80" font-family="monospace" font-size="11">✓ Level 0 → Level 1</text>
+      <text x="12" y="42" fill="#4ADE80" font-family="monospace" font-size="11">✓ Level 1 → Level 2</text>
+      <text x="12" y="62" fill="#FACC15" font-family="monospace" font-size="11">▶ Level 2 → Level 3 (ACTIVE)</text>
+      <text x="12" y="82" fill="#64748B" font-family="monospace" font-size="11">  Level 3 → Level 4</text>
+      <text x="12" y="102" fill="#64748B" font-family="monospace" font-size="11">  Level 4 → Level 5</text>
+      <text x="12" y="122" fill="#64748B" font-family="monospace" font-size="11">  Level 5 → Level 6</text>
+    </g>
+  </g>
+
+  <!-- SPLIT SCREEN: RIGHT SIDE (Linux Bash Terminal + Python Vault) -->
+  <g transform="translate(590, 38)">
+    <rect width="610" height="637" fill="#000000" />
+    
+    <!-- Terminal Header Tab -->
+    <rect width="610" height="32" fill="#0F111A" stroke="#1A1E2D" stroke-width="1" />
+    <text x="20" y="21" fill="#4ADE80" font-family="monospace" font-size="11">bandit0@bandit: ~ (ssh terminal)</text>
+
+    <g transform="translate(25, 60)" font-family="'JetBrains Mono', 'Fira Code', monospace" font-size="13">
+      <!-- Command 1: python3 bandit.py list -->
+      <text x="0" y="20" fill="#38BDF8">elomito@LAP-015:~$ </text>
+      <text x="160" y="20" fill="#FFFFFF">python3 bandit.py --sync-cloud</text>
+
+      <text x="0" y="45" fill="#A855F7">[Google OAuth 2.0] </text>
+      <text x="160" y="45" fill="#94A3B8">Token loaded from token.json (Auto-refresh OK)</text>
+      <text x="0" y="65" fill="#10B981">[Google Sheets API] </text>
+      <text x="170" y="65" fill="#94A3B8">Connected to "OverTheWire_Bandit_Vault" (Sheet1)</text>
+
+      <!-- Terminal SSH session -->
+      <text x="0" y="105" fill="#4ADE80">bandit0@bandit:~$ </text>
+      <text x="155" y="105" fill="#FFFFFF">ls -la</text>
+
+      <text x="0" y="130" fill="#94A3B8">total 24</text>
+      <text x="0" y="150" fill="#94A3B8">-rw-r----- 1 bandit1 bandit0   33 May  7  2024 readme</text>
+
+      <text x="0" y="180" fill="#4ADE80">bandit0@bandit:~$ </text>
+      <text x="155" y="180" fill="#FFFFFF">cat readme</text>
+
+      <text x="0" y="210" fill="#CBD5E1">Congratulations on your first steps into the bandit game!!</text>
+      <text x="0" y="230" fill="#CBD5E1">The password you are looking for is:</text>
+      <rect x="0" y="240" width="340" height="24" rx="3" fill="#1E293B" />
+      <text x="8" y="257" fill="#FACC15" font-weight="700">6y2kwwK6prgwvvpvLaa2TIcpFEKOHnNR</text>
+
+      <!-- Save to vault command -->
+      <text x="0" y="295" fill="#4ADE80">bandit0@bandit:~$ </text>
+      <text x="155" y="295" fill="#FFFFFF">exit</text>
+      <text x="0" y="315" fill="#64748B">logout</text>
+      <text x="0" y="335" fill="#64748B">Connection to bandit.labs.overthewire.org closed.</text>
+
+      <!-- Bandit Saver command execution -->
+      <text x="0" y="375" fill="#38BDF8">elomito@LAP-015:~$ </text>
+      <text x="160" y="375" fill="#FFFFFF">bandit save --level 1 --flag "6y2kwwK6pr..."</text>
+      <text x="0" y="400" fill="#10B981">✓ Saved Bandit Level 1 flag to Google Sheets vault!</text>
+      <text x="0" y="420" fill="#94A3B8">Row 2 updated in Sheet1 with zero local database footprint.</text>
+
+      <!-- Next Level ssh -->
+      <text x="0" y="460" fill="#38BDF8">elomito@LAP-015:~$ </text>
+      <text x="160" y="460" fill="#FFFFFF">ssh bandit1@bandit.labs.overthewire.org -p 2220</text>
+      
+      <!-- Blinking cursor -->
+      <rect x="0" y="495" width="8" height="15" fill="#4ADE80" />
+    </g>
+  </g>
+</svg>

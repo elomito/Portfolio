@@ -10,9 +10,9 @@ import { Hero } from './components/Hero';
 import { Expertise } from './components/Expertise';
 import { Projects } from './components/Projects';
 import { ProjectModal } from './components/ProjectModal';
-import { Experience } from './components/Experience';
 import { Blog } from './components/Blog';
 import { BlogModal } from './components/BlogModal';
+import { Hobbies } from './components/Hobbies';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { ResumeModal } from './components/ResumeModal';
@@ -29,8 +29,8 @@ export default function App() {
     { id: 'home', label: 'home' },
     { id: 'expertise', label: 'expertise' },
     { id: 'work', label: 'work' },
-    { id: 'experience', label: 'experience' },
-    { id: 'blog', label: 'blog' },
+    { id: 'articles', label: 'articles' },
+    { id: 'hobbies', label: 'hobbies' },
     { id: 'contact', label: 'contact' },
   ];
 
@@ -84,16 +84,16 @@ export default function App() {
           {/* Section 02: My Expertise with Code Watermark & 3-Col Framed Grid (Screenshot 2) */}
           <Expertise />
 
-          {/* Section 03: My Work with Featured Phone Mockup & Filtered Grid (Screenshots 3, 4, 5) */}
+          {/* Section 03: My Work with Featured Projects */}
           <Projects onSelectProject={(project) => setSelectedProject(project)} />
 
-          {/* Section 04: Professional Experience Accordion (Screenshot 6) */}
-          <Experience onOpenResume={() => setIsResumeOpen(true)} />
-
-          {/* Section 05: Engineering Blog & Research Case Studies */}
+          {/* Section 04: Engineering Articles & Research Case Studies */}
           <Blog onSelectPost={(post) => setSelectedPost(post)} />
 
-          {/* Section 06: Available for Select Freelance Opportunities & Testimonials (Screenshot 7) */}
+          {/* Section 06: Relevant Hobbies & Disciplines (Cohort 2 Requirement) */}
+          <Hobbies />
+
+          {/* Section 07: Available for Select Freelance Opportunities & Testimonials (Screenshot 7) */}
           <Contact onOpenResume={() => setIsResumeOpen(true)} />
         </main>
 

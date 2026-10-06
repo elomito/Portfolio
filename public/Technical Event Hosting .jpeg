@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="100%" height="100%">
+  <defs>
+    <linearGradient id="eventGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0E1626" />
+      <stop offset="50%" stop-color="#142848" />
+      <stop offset="100%" stop-color="#080C14" />
+    </linearGradient>
+    <linearGradient id="spotlight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="750" fill="url(#eventGrad)" />
+
+  <!-- Spotlight Cone -->
+  <polygon points="600,0 350,750 850,750" fill="url(#spotlight)" />
+
+  <!-- Stage Platform -->
+  <ellipse cx="600" cy="580" rx="450" ry="120" fill="#0C1527" stroke="#1E3860" stroke-width="2" />
+  
+  <!-- Presentation Screen / Stage Backdrop -->
+  <g transform="translate(240, 110)">
+    <rect width="720" height="400" rx="16" fill="#0B1220" stroke="#1D3A66" stroke-width="2" />
+    <rect width="720" height="38" rx="16" fill="#152642" />
+    <text x="30" y="25" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="13">Zone01 Kisumu Tech Summit · Live Keynote Session</text>
+    <circle cx="685" cy="19" r="6" fill="#EF4444" />
+    <text x="635" y="24" fill="#EF4444" font-family="'Inter', sans-serif" font-weight="700" font-size="11">LIVE</text>
+
+    <!-- Slide Content on Screen -->
+    <g transform="translate(45, 75)">
+      <text x="0" y="35" fill="#FFFFFF" font-family="'Inter', sans-serif" font-weight="900" font-size="28" letter-spacing="-0.5">
+        Connecting Developers &amp; Shaping Tech Dialogues
+      </text>
+      <text x="0" y="65" fill="#38BDF8" font-family="'Inter', sans-serif" font-weight="600" font-size="15">
+        Session Facilitator: Elizabeth Omito · Tech Community Host
+      </text>
+
+      <g transform="translate(0, 100)">
+        <rect width="300" height="90" rx="8" fill="#111D33" stroke="#233E6B" stroke-width="1.2" />
+        <text x="20" y="32" fill="#FACC15" font-family="'Inter', sans-serif" font-weight="700" font-size="14">Audience Engagement</text>
+        <text x="20" y="55" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="12">Interactive Q&amp;A curation</text>
+        <text x="20" y="72" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="12">Active speaker introductions</text>
+
+        <g transform="translate(325, 0)">
+          <rect width="300" height="90" rx="8" fill="#111D33" stroke="#233E6B" stroke-width="1.2" />
+          <text x="20" y="32" fill="#4ADE80" font-family="'Inter', sans-serif" font-weight="700" font-size="14">Technical Storytelling</text>
+          <text x="20" y="55" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="12">Bridging complex topics</text>
+          <text x="20" y="72" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="12">Inclusive spaces for all levels</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Microphone Stand on Stage -->
+  <g transform="translate(600, 480)">
+    <!-- Base -->
+    <ellipse cx="0" cy="120" rx="45" ry="14" fill="#060A12" stroke="#38BDF8" stroke-width="1.5" />
+    <line x1="0" y1="120" x2="0" y2="20" stroke="#64748B" stroke-width="6" stroke-linecap="round" />
+    
+    <!-- Shock mount & mic capsule -->
+    <circle cx="0" cy="20" r="14" fill="#1E293B" stroke="#38BDF8" stroke-width="2" />
+    <!-- Pink pop filter as in user photo -->
+    <rect x="-11" y="-8" width="22" height="30" rx="10" fill="#EC4899" />
+    <path d="M-8 0 Q0 -6 8 0" stroke="#BE185D" stroke-width="1.5" fill="none" />
+  </g>
+
+  <!-- Bottom Label -->
+  <text x="600" y="715" text-anchor="middle" fill="#94A3B8" font-family="'Inter', sans-serif" font-weight="600" font-size="18" letter-spacing="2">
+    TECHNICAL EVENT HOSTING · MODERATION · PUBLIC SPEAKING
+  </text>
+</svg>
