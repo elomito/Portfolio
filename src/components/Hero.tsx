@@ -8,13 +8,13 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onOpenResume, onExploreProjects }) => {
   const [photoSrc, setPhotoSrc] = useState<string>(() => {
-    return localStorage.getItem('omito_profile_photo') || '/profile.webp';
+    return localStorage.getItem('omito_profile_photo') || '/profie.webp';
   });
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    if (!e.currentTarget.src.includes('flovatieno.webp')) {
-      e.currentTarget.src = '/flovatieno.webp';
-      setPhotoSrc('/flovatieno.webp');
+    if (!e.currentTarget.src.includes('profie.webp')) {
+      e.currentTarget.src = '/profie.webp';
+      setPhotoSrc('/profie.webp');
     }
   };
 
